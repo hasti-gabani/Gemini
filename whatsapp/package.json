@@ -1,0 +1,13 @@
+{
+  "name": "gemini-whatsapp",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sends bill PDFs from the owner's own WhatsApp (linked like WhatsApp Web) for Gemini.",
+  "type": "module",
+  "main": "service.mjs",
+  "dependencies": {
+    "@whiskeysockets/baileys": "7.0.0-rc14",
+    "pino": "9.6.0",
+    "qrcode": "1.5.4"
+  }
+}

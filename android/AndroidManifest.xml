@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gemini for Android: shows Gemini from the PC on the same Wi-Fi, and sends bill PDFs through this
+     phone's own WhatsApp, straight into the party's chat. Built by scripts/build_apk.py. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gemini.bills"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="35" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Android 11+: allow checking whether WhatsApp / WhatsApp Business is installed -->
+    <queries>
+        <package android:name="com.whatsapp" />
+        <package android:name="com.whatsapp.w4b" />
+    </queries>
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Hands the bill PDF to WhatsApp (read-only, only for the share that needs it) -->
+        <provider
+            android:name=".PdfProvider"
+            android:authorities="com.gemini.bills.files"
+            android:exported="false"
+            android:grantUriPermissions="true" />
+    </application>
+</manifest>

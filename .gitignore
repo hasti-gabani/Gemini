@@ -1,0 +1,53 @@
+# Backend
+backend/venv/
+backend/.env
+backend/.secret_key
+backend/db.sqlite3
+backend/db.sqlite3-*
+backend/staticfiles/
+backend/media/
+__pycache__/
+*.pyc
+*.pyo
+
+# Stray files from an earlier pip install into the project folder
+/Lib/
+/_ul
+backend/Lib/
+backend/Scripts/
+scripts/*.exe
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Local environment
+.certs/
+whatsapp/node_modules/
+whatsapp/.auth/
+android/build/
+android/*.keystore
+android/.keystore-password
+frontend/public/gemini.apk
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Data files and automatic backups (contain customer data)
+*.sqlite3
+*.sqlite3-*
+backend/backups/
+backups/
+
+# Claude Code local state (worktree copies, per-machine settings)
+.claude/worktrees/
+.claude/settings.local.json
+
+# Runner
+.pids/
+.logs/
+
+# Archived previous version of the app
+_legacy/

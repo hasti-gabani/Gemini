@@ -1,0 +1,287 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/noto-sans-gujarati";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* ------------------------------------------------------------------ tokens */
+
+:root {
+  --canvas: #f3f5f9;
+  --card: #ffffff;
+  --muted: #f7f9fc;
+  --subtle: #eef2f7;
+  --line: #e2e8f0;
+  --line-strong: #cbd5e1;
+  --ink: #0f172a;
+  --ink-2: #475569;
+  --ink-3: #8a97ab;
+  --brand: #1d4ed8;
+  --brand-hover: #1e40af;
+  --brand-soft: #eaf1ff;
+  --brand-ink: #1d4ed8;
+  --pos: #15803d;
+  --pos-soft: #e7f6ec;
+  --neg: #d92d20;
+  --neg-soft: #fdecea;
+  --warn: #b45309;
+  --warn-soft: #fdf3e1;
+  --ring: rgb(29 78 216 / 0.28);
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 3px rgb(15 23 42 / 0.05);
+  --shadow-pop: 0 18px 40px -12px rgb(15 23 42 / 0.28), 0 2px 6px rgb(15 23 42 / 0.06);
+  /* chart series (validated for CVD separation + 3:1 contrast on the card surface) */
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --grid: #e8ecf2;
+  --axis: #cbd5e1;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --canvas: #0a0f1c;
+  --card: #111827;
+  --muted: #0f1626;
+  --subtle: #1a2436;
+  --line: #222d40;
+  --line-strong: #344256;
+  --ink: #e7ecf3;
+  --ink-2: #a5b1c3;
+  --ink-3: #6e7c92;
+  --brand: #3b7cf6;
+  --brand-hover: #5a92f8;
+  --brand-soft: #16233f;
+  --brand-ink: #86b2ff;
+  --pos: #34c46e;
+  --pos-soft: #10291b;
+  --neg: #f5776c;
+  --neg-soft: #2e1614;
+  --warn: #f2b84b;
+  --warn-soft: #2c2212;
+  --ring: rgb(90 146 248 / 0.35);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-pop: 0 18px 40px -12px rgb(0 0 0 / 0.6);
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --grid: #1f2937;
+  --axis: #344256;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-ink: var(--brand-ink);
+  --color-pos: var(--pos);
+  --color-pos-soft: var(--pos-soft);
+  --color-neg: var(--neg);
+  --color-neg-soft: var(--neg-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
+  --font-sans: "Inter Variable", "Noto Sans Gujarati Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --breakpoint-xs: 400px;
+}
+
+@theme {
+  --animate-fade-in: fade-in 160ms ease-out;
+  --animate-sheet-up: sheet-up 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-pop-in: pop-in 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-toast-in: toast-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes sheet-up {
+    from { transform: translateY(24px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes pop-in {
+    from { transform: scale(0.97); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  @keyframes toast-in {
+    from { transform: translateY(12px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+}
+
+/* ------------------------------------------------------------------ base */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--brand-soft);
+  }
+  input, select, textarea, button {
+    font: inherit;
+  }
+  /* 16px inputs stop iOS Safari from zooming the page on focus */
+  input, select, textarea {
+    font-size: 16px;
+  }
+  button, [role="button"] {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+  [data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+}
+
+/* ------------------------------------------------------------------ components */
+
+@layer components {
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .field {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 2.875rem;
+    padding: 0 0.875rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--line-strong);
+    background: var(--card);
+    color: var(--ink);
+    transition: border-color 150ms, box-shadow 150ms;
+  }
+  textarea.field {
+    height: auto;
+    min-height: 5.5rem;
+    padding: 0.7rem 0.875rem;
+    line-height: 1.45;
+    resize: vertical;
+  }
+  select.field {
+    appearance: none;
+    padding-right: 2.25rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%238a97ab' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+  }
+  .field::placeholder {
+    color: var(--ink-3);
+  }
+  .field:hover {
+    border-color: var(--ink-3);
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--brand);
+    box-shadow: 0 0 0 4px var(--ring);
+  }
+  .field[aria-invalid="true"] {
+    border-color: var(--neg);
+  }
+  .field[aria-invalid="true"]:focus {
+    box-shadow: 0 0 0 4px rgb(217 45 32 / 0.18);
+  }
+  .field:disabled {
+    background: var(--muted);
+    color: var(--ink-2);
+    cursor: not-allowed;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  .scroll-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  /* dashed "zig-zag" divider like a paper bill */
+  .bill-edge {
+    background-image: linear-gradient(135deg, var(--canvas) 25%, transparent 25%),
+      linear-gradient(225deg, var(--canvas) 25%, transparent 25%);
+    background-size: 12px 12px;
+    background-position: 0 0;
+    height: 8px;
+  }
+}
+
+/* ------------------------------------------------------------------ printing */
+
+/* A document being printed is rendered into .print-stage (a direct child of body):
+   off-screen while on screen, and the only thing on the page when printing. */
+.print-stage {
+  position: fixed;
+  left: -10000px;
+  top: 0;
+  background: #fff;
+}
+
+@media print {
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body.is-printing > *:not(.print-stage) {
+    display: none !important;
+  }
+  body.is-printing .print-stage {
+    position: static;
+    left: auto;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

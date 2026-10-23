@@ -1,0 +1,16 @@
+Django>=5.2.8,<5.3
+# Minimum versions below include the latest security fixes (pip-audit, September 2026)
+djangorestframework>=3.17.2,<4
+Pillow>=12.3.0
+sqlparse>=0.6.0
+openpyxl>=3.1.5
+# core/pdf.py patches ReportLab's word shaper for mixed Gujarati/Latin words; re-test before upgrading
+reportlab>=4.4,<4.5
+# HarfBuzz text shaping: required for correct Gujarati conjuncts in PDFs
+uharfbuzz>=0.40
+python-dotenv>=1.0
+whitenoise>=6.9
+# First-page preview of bill PDFs sent on WhatsApp (core/whatsapp.py)
+pymupdf>=1.28,<1.29
+waitress>=3.0 ; platform_system == "Windows"
+gunicorn>=23.0 ; platform_system != "Windows"
